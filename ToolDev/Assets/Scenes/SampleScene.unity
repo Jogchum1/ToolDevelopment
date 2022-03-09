@@ -1425,6 +1425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1910484137}
   - component: {fileID: 1910484136}
+  - component: {fileID: 1910484138}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1452,12 +1453,30 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910484135}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 207.57664, y: 457.815, z: -147.6511}
+  m_LocalPosition: {x: 545, y: -47, z: 1203}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1910484138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910484135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a7588326233d941840d27a920423b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boidPrefab: {fileID: 4940332025872559823, guid: ea4a965e7818421439fa41218026bdc9, type: 3}
+  boidAmount: 20
+  SeparationRange: 100
+  pushValue: 100
+  cohesionValue: 10
+  SpeedLimiter: 180
 --- !u!1 &1984202650
 GameObject:
   m_ObjectHideFlags: 0
