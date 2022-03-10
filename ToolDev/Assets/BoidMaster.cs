@@ -118,11 +118,11 @@ public class BoidMaster : MonoBehaviour
 
         Vector3 screenPush = Vector3.zero;
 
-        if (b.position.x < 0)
+        if (b.position.x < 150)
         {
             screenPush.x = pushValue;
         }
-        else if (b.position.x > 1500)
+        else if (b.position.x > 1000)
         {
             screenPush.x = -pushValue;
         }
@@ -131,7 +131,7 @@ public class BoidMaster : MonoBehaviour
         {
             screenPush.y = pushValue;
         }
-        else if (b.position.y > 1000)
+        else if (b.position.y > 600)
         {
             screenPush.y = -pushValue;
         }
@@ -148,5 +148,10 @@ public class BoidMaster : MonoBehaviour
 
 
         return screenPush;
+    }
+
+    public void ChangeSpeed(float newSpeed)
+    {
+        SpeedLimiter = newSpeed;
     }
 }
