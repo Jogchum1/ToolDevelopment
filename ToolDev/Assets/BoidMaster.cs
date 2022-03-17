@@ -23,6 +23,7 @@ public class BoidMaster : MonoBehaviour
     }
 
 
+
     private void spawnBoids()
     {
         for (int i = 0; i < boidAmount; i++)
@@ -30,8 +31,20 @@ public class BoidMaster : MonoBehaviour
             Vector3 randomPosition = new Vector3(Random.Range(1, 150), Random.Range(1, 100), Random.Range(1, 100));
             Boid b = Instantiate(boidPrefab, randomPosition, Quaternion.identity).GetComponent<Boid>();
             boidList.Add(b);
+            
         }
     }
+
+    public void replaceBoids(GameObject newPrefab)
+    {
+        Debug.Log("test");
+
+        foreach (Boid b in boidList)
+        {
+            newPrefab.transform.parent = b.transform;
+        }
+    }
+
     private void MoveBoids()
     {
         Vector3 v1, v2, v3, v4;
