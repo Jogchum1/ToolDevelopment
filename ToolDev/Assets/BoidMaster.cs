@@ -5,12 +5,17 @@ using UnityEngine;
 public class BoidMaster : MonoBehaviour
 {
     public GameObject boidPrefab;
+   
+    
+
+
     public int boidAmount = 20;
     private List<Boid> boidList;
     public float SeparationRange = 0.5f;
     public float pushValue;
     public float cohesionValue = 10;
-    public float SpeedLimiter = 1;
+    public float SpeedLimiter = 100;
+
     void Start()
     {
         boidList = new List<Boid>();
@@ -41,6 +46,7 @@ public class BoidMaster : MonoBehaviour
 
         foreach (Boid b in boidList)
         {
+            
             newPrefab.transform.parent = b.transform;
         }
     }
@@ -56,7 +62,7 @@ public class BoidMaster : MonoBehaviour
             v3 = Alignment(b);
             v4 = BindPosition(b);
 
-            b.velocity = b.velocity + v1 + v2 + v3 + v4;
+            b.velocity = b.velocity + v1 + v2 + v4;
             limit_velocity(b);
             b.position = b.position + b.velocity * Time.deltaTime;
         }
@@ -65,11 +71,13 @@ public class BoidMaster : MonoBehaviour
     private void limit_velocity(Boid b)
     {
 
-        if (Vector3.Magnitude(b.velocity) > SpeedLimiter)
+        if(b.velocity.magnitude > SpeedLimiter)
         {
-            b.velocity = (b.velocity / Vector3.Magnitude(b.velocity)) * SpeedLimiter;
-
+            b.velocity = b.velocity.normalized * SpeedLimiter;
         }
+
+        b.transform.rotation = Quaternion.LookRotation(b.velocity);
+
     }
 
     public Vector3 Cohesion(Boid boid)
@@ -125,6 +133,7 @@ public class BoidMaster : MonoBehaviour
         return (PerceivedVelocity - boid.velocity) / 8;
 
     }
+
     private Vector3 BindPosition(Boid b)
     {
         int Xmin, Xmax, Ymin, Ymax;
