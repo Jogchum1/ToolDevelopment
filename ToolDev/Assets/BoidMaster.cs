@@ -5,12 +5,10 @@ using UnityEngine;
 public class BoidMaster : MonoBehaviour
 {
     public GameObject boidPrefab;
-   
-    
-
-
     public int boidAmount = 20;
-    private List<Boid> boidList;
+
+
+    private List<Boid> boidList = new List<Boid>();
     public float SeparationRange = 0.5f;
     public float pushValue;
     public float cohesionValue = 10;
@@ -18,7 +16,7 @@ public class BoidMaster : MonoBehaviour
 
     void Start()
     {
-        boidList = new List<Boid>();
+        
         spawnBoids();
     }
 
@@ -26,9 +24,7 @@ public class BoidMaster : MonoBehaviour
     {
         MoveBoids();
     }
-
-
-
+    
     private void spawnBoids()
     {
         for (int i = 0; i < boidAmount; i++)
@@ -40,16 +36,15 @@ public class BoidMaster : MonoBehaviour
         }
     }
 
-    public void replaceBoids(GameObject newPrefab)
-    {
-        Debug.Log("test");
+    //public void replaceBoids(GameObject newPrefab)
+    //{
+    //    Debug.Log("test");
 
-        foreach (Boid b in boidList)
-        {
-            
-            newPrefab.transform.parent = b.transform;
-        }
-    }
+    //    foreach (Boid b in boidList)
+    //    {
+    //        newPrefab.transform.parent = b.transform;
+    //    }
+    //}
 
     private void MoveBoids()
     {
@@ -62,21 +57,22 @@ public class BoidMaster : MonoBehaviour
             v3 = Alignment(b);
             v4 = BindPosition(b);
 
-            b.velocity = b.velocity + v1 + v2 + v4;
+            b.velocity += v1 + v2 + v3 + v4;
             limit_velocity(b);
-            b.position = b.position + b.velocity * Time.deltaTime;
+            b.position += b.velocity * Time.deltaTime;
         }
     }
 
-    private void limit_velocity(Boid b)
+    private void limit_velocity(Boid boid)
     {
 
-        if(b.velocity.magnitude > SpeedLimiter)
+        if(boid.velocity.magnitude > SpeedLimiter)
         {
-            b.velocity = b.velocity.normalized * SpeedLimiter;
+            boid.velocity = (boid.velocity / boid.velocity.magnitude) * SpeedLimiter;
         }
 
-        b.transform.rotation = Quaternion.LookRotation(b.velocity);
+        boid.transform.rotation = Quaternion.LookRotation(boid.velocity);
+        
 
     }
 
@@ -100,19 +96,20 @@ public class BoidMaster : MonoBehaviour
 
     public Vector3 Separation(Boid boid)
     {
-        Vector3 collide = Vector3.zero;
+        Vector3 seperatePosition = Vector3.zero;
+
         foreach (Boid b in boidList)
         {
             if (b != boid)
             {
                 if (Vector3.Magnitude(b.position - boid.position) < SeparationRange)
                 {
-                    collide = collide - (b.position - boid.position);
+                    seperatePosition = seperatePosition - (b.position - boid.position) * 1.5f;
                 }
             }
         }
-
-        return collide;
+        
+        return seperatePosition;
     }
 
     public Vector3 Alignment(Boid boid)
