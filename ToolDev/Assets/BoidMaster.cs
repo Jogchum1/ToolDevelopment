@@ -59,6 +59,7 @@ public class BoidMaster : MonoBehaviour
 
             b.velocity += v1 + v2 + v3 + v4;
             limit_velocity(b);
+         
             b.position += b.velocity * Time.deltaTime;
         }
     }
@@ -71,8 +72,11 @@ public class BoidMaster : MonoBehaviour
             boid.velocity = (boid.velocity / boid.velocity.magnitude) * SpeedLimiter;
         }
 
-        boid.transform.rotation = Quaternion.LookRotation(boid.velocity);
-        
+        boid.transform.position += boid.velocity * Time.deltaTime;
+
+        //boid.transform.position = Vector3.Lerp(transform.position, boid.velocity, 10000 * Time.deltaTime);
+
+        //boid.transform.rotation = Quaternion.LookRotation(boid.velocity);
 
     }
 
@@ -91,7 +95,7 @@ public class BoidMaster : MonoBehaviour
 
         PerceivedCentre = PerceivedCentre / (boidList.Count - 1);
 
-        return (PerceivedCentre - boid.position) / cohesionValue;
+        return (PerceivedCentre - boid.position).normalized / cohesionValue;
     }
 
     public Vector3 Separation(Boid boid)
@@ -127,7 +131,7 @@ public class BoidMaster : MonoBehaviour
         PerceivedVelocity = PerceivedVelocity / (boidList.Count - 1);
 
 
-        return (PerceivedVelocity - boid.velocity) / 8;
+        return Vector3.Normalize(PerceivedVelocity - boid.velocity) / 8;
 
     }
 
