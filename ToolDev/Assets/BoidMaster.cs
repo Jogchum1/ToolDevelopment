@@ -5,10 +5,10 @@ using UnityEngine;
 public class BoidMaster : MonoBehaviour
 {
     public GameObject boidPrefab;
-    public int boidAmount = 20;
 
 
-    private List<Boid> boidList = new List<Boid>();
+    public List<Boid> boidList = new List<Boid>();
+    public float boidAmount;
     public float SeparationRange = 0.5f;
     public float pushValue;
     public float cohesionValue = 10;
@@ -17,15 +17,14 @@ public class BoidMaster : MonoBehaviour
     void Start()
     {
         
-        spawnBoids();
     }
 
     void Update()
     {
-        MoveBoids();
+       MoveBoids();
     }
     
-    private void spawnBoids()
+    public void spawnBoids()
     {
         for (int i = 0; i < boidAmount; i++)
         {
@@ -36,15 +35,32 @@ public class BoidMaster : MonoBehaviour
         }
     }
 
-    //public void replaceBoids(GameObject newPrefab)
-    //{
-    //    Debug.Log("test");
+    public void DeleteBoids()
+    {
 
-    //    foreach (Boid b in boidList)
-    //    {
-    //        newPrefab.transform.parent = b.transform;
-    //    }
-    //}
+        
+
+        for (int i = boidList.Count -1; i >= 0; i--)
+        {
+            //Boid removeBoid = boidList[0];
+            //boidList.Remove(removeBoid);
+            //Destroy(removeBoid);
+            
+            Boid removeBoid = boidList[i];
+            boidList.Remove(removeBoid);
+            Destroy(removeBoid.gameObject);
+            
+            Debug.Log("Destroyed");
+
+        }
+        
+
+    }
+
+    public void replaceBoids(GameObject newPrefab)
+    {
+        boidPrefab = newPrefab;
+    }
 
     private void MoveBoids()
     {

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DropdownTest : MonoBehaviour
 {
-    //public GameObject PrefabA;
-    //public GameObject PrefabB;
-    //public GameObject PrefabC;
+    public GameObject PrefabA;
+    public GameObject PrefabB;
+    
 
     public BoidMaster boidMaster;
 
@@ -20,12 +20,12 @@ public class DropdownTest : MonoBehaviour
         if(val == 0)
         {
             Debug.Log("A");
-            //boidMaster.replaceBoids(PrefabA);
+            boidMaster.replaceBoids(PrefabA);
         }
         if(val == 1)
         {
             Debug.Log("B");
-            //boidMaster.replaceBoids(PrefabB);
+            boidMaster.replaceBoids(PrefabB);
         }
         if (val == 3)
         {

@@ -9,7 +9,7 @@ public class FSMAgent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        fsm = new FSM(typeof(BoidState), GetComponents<BaseState>());
+        fsm = new FSM(typeof(ObjectState), GetComponents<BaseState>());
     }
 
     // Update is called once per frame

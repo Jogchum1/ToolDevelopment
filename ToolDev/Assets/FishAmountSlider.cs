@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PushSlider : MonoBehaviour
+public class FishAmountSlider : MonoBehaviour
 {
     [SerializeField] private Slider slider;
     [SerializeField] private TextMeshProUGUI sliderText;
@@ -15,6 +15,7 @@ public class PushSlider : MonoBehaviour
     void Start()
     {
         slider.value = 1;
+        boidMaster.boidAmount = 1;
 
         slider.onValueChanged.AddListener((v) =>
         {
@@ -23,8 +24,8 @@ public class PushSlider : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void UpdateSlider()
+    public void Update()
     {
-        boidMaster.pushValue = slider.value;
+        boidMaster.boidAmount = slider.value;
     }
 }

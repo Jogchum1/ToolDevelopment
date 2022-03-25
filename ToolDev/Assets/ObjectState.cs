@@ -2,29 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoidState : BaseState
+public class ObjectState : BaseState
 {
-    public BoidMaster boidMaster;
     public GameObject sliders;
+    public BoidMaster boidmaster;
 
     public override void OnEnter()
     {
-        sliders.SetActive(true);
-        boidMaster.spawnBoids();
+        Debug.Log("JOE");
+        sliders.SetActive(false);
     }
 
     public override void OnExit()
     {
-        boidMaster.DeleteBoids();
+        
     }
 
     public override void OnUpdate()
     {
-        
+        Debug.Log(boidmaster.boidAmount);
     }
 
     public void ChangeState()
     {
-        owner.SwitchState(typeof(ObjectState));
+        owner.SwitchState(typeof(BoidState));
     }
 }
