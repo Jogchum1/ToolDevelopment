@@ -20,7 +20,7 @@ public class ObjectState : BaseState
 
     public override void OnUpdate()
     {
-        Debug.Log(boidmaster.boidAmount);
+        //Debug.Log(boidmaster.boidAmount);
     }
 
     public void ChangeState()

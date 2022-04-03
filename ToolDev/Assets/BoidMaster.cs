@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BoidMaster : MonoBehaviour
 {
     public GameObject boidPrefab;
@@ -77,6 +78,7 @@ public class BoidMaster : MonoBehaviour
             limit_velocity(b);
          
             b.position += b.velocity * Time.deltaTime;
+            Quaternion.Euler(b.velocity.normalized * Time.deltaTime);
         }
     }
 
@@ -92,7 +94,7 @@ public class BoidMaster : MonoBehaviour
 
         //boid.transform.position = Vector3.Lerp(transform.position, boid.velocity, 10000 * Time.deltaTime);
 
-        //boid.transform.rotation = Quaternion.LookRotation(boid.velocity);
+        //boid.transform.rotation = Quaternion.LookRotation(boid.velocity * Time.deltaTime / 1000);
 
     }
 
