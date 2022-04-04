@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 using UnityEngine;
 
 [System.Serializable]
-public class SaveData : MonoBehaviour
+public class SaveData
 {
 
     public string name;
@@ -13,6 +13,8 @@ public class SaveData : MonoBehaviour
     public float separation;
     public float cohesion;
     public float push;
+
+    
 
     [OnSerializing]
     void OnSerializing(StreamingContext context)

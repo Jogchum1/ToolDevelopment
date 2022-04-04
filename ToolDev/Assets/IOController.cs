@@ -12,6 +12,8 @@ using UnityEngine.UI;
 public class IOController : MonoBehaviour
 {
     public SaveData myData;
+    public string saveFile;
+
     public InputField fileNameInput;
 
     public Slider boidAmountSlider;
@@ -42,53 +44,44 @@ public class IOController : MonoBehaviour
 	private void CreateButton_clicked() {
         Debug.Log("New Data Created!");
 
-        // TODO: Als het niet null is... user waarschuwen?
         myData = new SaveData();
     }
 
     public void LoadButton_clicked() {
         Debug.Log("Attempting Load");
 
-        string url = Path.Combine(Application.persistentDataPath, fileNameInput.text);
-
-        FileStream fstream = null;
+        string url = Path.Combine(Application.persistentDataPath, fileNameInput.text + ".json");
+        Debug.Log(url);
+        
         try {
-            fstream = new FileStream(url, FileMode.Open);
 
-            // do iets
-            myData = (SaveData)formatter.Deserialize(fstream);
-
-            fstream.Close();
-
-            //UpdateEditorDisplay();
+            string fileContents = File.ReadAllText(url);
+            //TextAsset fileContents = Resources.Load<TextAsset>(Path.Combine(Application.persistentDataPath, fileNameInput.text + ".json"));
+            myData = JsonUtility.FromJson<SaveData>(fileContents);
+            
+            UpdateEditorDisplay();
 
             Debug.Log("LOADED: " + url);
+            Debug.Log(myData.boidAmount);
+            myData.boidAmount = this.myData.boidAmount;
         }
         catch (System.Exception e) {
             Debug.LogError("Serialization Error: " + e.Message);
-            // Zinnig output
         }
     }
 
     public void SaveButton_clicked() {
         Debug.Log("Attempting Save");
 
-        // not valid in this context
-        
         string url = Path.Combine(Application.persistentDataPath, fileNameInput.text);
 
-        FileStream fstream = null;
         try {
-            fstream = new FileStream(url, FileMode.Create);
 
-            // do iets
-            //formatter.Serialize(fstream, myData);
             string data = JsonUtility.ToJson(myData);
             System.IO.File.WriteAllText(url + ".json", data);
-            fstream.Flush();
-            fstream.Close();
+            
 
-            Debug.Log("SAVED: "+url);
+            Debug.Log("SAVED: " +url);
         }
         catch ( System.Exception e ) {
             Debug.LogError("Serialization Error: " + e.Message);
@@ -138,5 +131,10 @@ public class IOController : MonoBehaviour
         {
             formatter.Serialize(stream, data);
         }
+    }
+
+    private void UpdateEditorDisplay()
+    {
+        boidAmountSlider.value = myData.boidAmount;
     }
 }
