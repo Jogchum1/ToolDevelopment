@@ -29,7 +29,7 @@ public class BoidMaster : MonoBehaviour
     {
         for (int i = 0; i < boidAmount; i++)
         {
-            Vector3 randomPosition = new Vector3(Random.Range(1, 150), Random.Range(1, 100), Random.Range(1, 100));
+            Vector3 randomPosition = new Vector3(Random.Range(1, 500), Random.Range(1, 500), Random.Range(1, 500));
             Boid b = Instantiate(boidPrefab, randomPosition, Quaternion.identity).GetComponent<Boid>();
             boidList.Add(b);
             
@@ -94,7 +94,7 @@ public class BoidMaster : MonoBehaviour
 
         //boid.transform.position = Vector3.Lerp(transform.position, boid.velocity, 10000 * Time.deltaTime);
 
-        //boid.transform.rotation = Quaternion.LookRotation(boid.velocity * Time.deltaTime / 1000);
+        boid.transform.rotation = Quaternion.LookRotation(boid.velocity * Time.deltaTime / 1000);
 
     }
 

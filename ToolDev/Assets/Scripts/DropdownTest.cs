@@ -6,6 +6,7 @@ public class DropdownTest : MonoBehaviour
 {
     public GameObject PrefabA;
     public GameObject PrefabB;
+    public GameObject PrefabC;
     
 
     public BoidMaster boidMaster;
@@ -27,10 +28,10 @@ public class DropdownTest : MonoBehaviour
             Debug.Log("B");
             boidMaster.replaceBoids(PrefabB);
         }
-        if (val == 3)
+        if (val == 2)
         {
             Debug.Log("C");
-           // boidMaster.replaceBoids(PrefabC);
+            boidMaster.replaceBoids(PrefabC);
         }
     }
 }
